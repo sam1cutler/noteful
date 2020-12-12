@@ -4,11 +4,13 @@ import './NoteCard.css';
 
 class NoteCard extends Component {
 
+    static defaultProps = {
+        cardInfo: []
+    }
+
     render() {
 
         const { cardInfo } = this.props
-
-        console.log(cardInfo);
 
         return (
             <div className='note-card'>
