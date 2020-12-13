@@ -1,0 +1,14 @@
+.back-button {
+    color: black;
+    display: block;
+    font-size: 14pt;
+    font-weight: bold;
+    margin-left: 30px;
+    padding: 10px 30px;
+    text-align: center;
+    text-decoration: none;
+}
+
+.back-button {
+    cursor: pointer;
+  }

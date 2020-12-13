@@ -8,10 +8,13 @@
     border: 1px solid darkslategrey;
 }
 
+
 .folder-nav-link:hover {
-    background-color: rgb(171, 230, 250);
+    background-color: rgb(226, 246, 253);
 }
 
 .folder-nav-link.active {
     background-color: rgb(171, 230, 250);
 }
+
+

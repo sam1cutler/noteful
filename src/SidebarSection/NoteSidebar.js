@@ -18,11 +18,9 @@ class NoteSidebar extends Component {
 
         return (
             <div>
-                <button type='button' onClick={this.props.onClickGoBack}>
-                    <div className='back-button'>
-                        Go Back
-                    </div>
-                </button><br />
+                <button className='back-button' onClick={this.props.onClickGoBack}>
+                    Go Back
+                </button>
                 <h3>Current folder: {folderName}</h3>
                 
             </div>
