@@ -1,5 +1,10 @@
 .note-card {
+    display: block;
     margin: 10px;
     padding: 10px;
     border: 1px solid teal;
+}
+
+.note-card:hover {
+    background-color: rgb(239, 247, 250);
 }

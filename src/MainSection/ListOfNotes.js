@@ -11,6 +11,9 @@ class ListOfNotes extends Component {
 
     render() {
 
+        //console.log('Notes that made it to ListOfNotes.js:')
+        //console.log(this.props)
+
         const cardList = this.props.relevantNotes.map( (activeNote, i) => {
             //console.log(activeNote);
             return (
@@ -23,7 +26,6 @@ class ListOfNotes extends Component {
 
         return (
             <div>
-                <h2>Hey it's a list of NoteCards!</h2>
                 {cardList}
             </div>
         )

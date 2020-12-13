@@ -27,3 +27,25 @@
 .main-section {
   width: 70vw;
 }
+
+a:link {
+  text-decoration: none;
+}
+
+header a:visited { color: white }
+main a:visited { color: black}
+
+ul {
+  list-style-type: none;
+  margin: 0px;
+  padding: 0px;
+}
+
+li {
+  margin: 0px;
+  padding: 0px;
+}
+
+main.a {
+  margin: 0px;
+}
