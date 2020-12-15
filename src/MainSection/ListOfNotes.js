@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 //import { Route } from 'react-router-dom';
 import './ListOfNotes.css';
+//import NotesContext from '../NotesContext';
 import NoteCard from './NoteCard';
 
 class ListOfNotes extends Component {

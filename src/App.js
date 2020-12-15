@@ -11,6 +11,84 @@ class App extends Component {
 
   state = STORE;
 
+  filterListOfNotes(currentFolderId) {
+    if (currentFolderId) {
+      return (
+        this.state.notes.filter(note =>
+        note.folderId === currentFolderId)
+      )
+    } else {
+      return this.state.notes;
+    }
+  }
+  
+  renderSidebarRoutes() {
+
+    return (
+      <>
+        {['/','/folder/:folderId'].map(path => (
+          <Route 
+            key={path}
+            path={path}
+            exact
+            render={ () => 
+              <ListOfFolders 
+                folderList={this.state.folders}
+              />
+            }
+          />
+        ))}
+        <Route 
+          path='/note/:noteName'
+          render={ (props) => 
+            <NoteSidebar 
+              noteInfo={this.state.notes.find(note => 
+                note.name === props.match.params.noteName)}
+              folderList={this.state.folders}
+              onClickGoBack={ () => props.history.goBack()}
+            />
+          }
+        />
+      </>
+    )
+  }
+
+  renderMainRoutes() {
+
+    return (
+
+      <>
+        {['/','/folder/:folderId'].map(path => (
+          <Route
+            exact
+            key={path}
+            path={path}
+            render={ (props) => {
+              const relevantNotesList = 
+              this.filterListOfNotes(props.match.params.folderId);
+              return (
+                <ListOfNotes 
+                  relevantNotes={relevantNotesList}
+                />
+              )    
+            }}
+          />
+        ))}
+        <Route 
+          path='/note/:noteName'
+          render={ (props) => {
+            return (
+              <NotePage 
+                noteInfo={this.state.notes.find(note => 
+                  note.name === props.match.params.noteName)}
+              />
+            )
+          }}
+        />
+      </>
+    )
+  }
+  
   render() {
 
     return (
@@ -22,73 +100,10 @@ class App extends Component {
         </header>
         <main className='major-group'>
           <section className='major-section folders-section'>
-            <Route 
-              path='/'
-              exact
-              render={ () => 
-                <ListOfFolders 
-                  folderList={this.state.folders}
-                />
-              }
-            />
-            <Route 
-              path='/folder'
-              render={ () => 
-                <ListOfFolders 
-                  folderList={this.state.folders}
-                />
-              }
-            />
-            <Route 
-              path='/note/:noteName'
-              render={ (props) => 
-                <NoteSidebar 
-                  noteInfo={this.state.notes.find(note => 
-                    note.name === props.match.params.noteName)}
-                  folderList={this.state.folders}
-                  onClickGoBack={ () => props.history.goBack()}
-                />
-              }
-            />
-
-        
+            {this.renderSidebarRoutes()}        
           </section>
           <section className='major-section main-section'>
-            <Route
-              path='/'
-              exact
-              render={ () => 
-                <ListOfNotes 
-                  relevantNotes={this.state.notes}
-                />    
-              }
-            />
-            <Route
-              path='/folder/:folderId'
-              render={ (props) => {
-                //console.log('alt route')
-                //console.log(props)
-                //console.log(props.match.params)
-                return (
-                  <ListOfNotes 
-                    relevantNotes={this.state.notes.filter(note =>
-                      note.folderId === props.match.params.folderId)}
-                  />
-                )    
-              }}
-            />
-            <Route 
-              path='/note/:noteName'
-              render={ (props) => {
-                return (
-                  <NotePage 
-                    noteInfo={this.state.notes.find(note => 
-                      note.name === props.match.params.noteName)}
-                  />
-                )
-              }}
-            />
-          
+            {this.renderMainRoutes()}          
           </section>
         </main>
       </div>
