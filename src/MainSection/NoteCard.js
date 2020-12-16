@@ -13,7 +13,10 @@ class NoteCard extends Component {
 
         const { cardInfo } = this.props
 
-        const date = new Date(cardInfo.modified)
+        const date = new Date(cardInfo.modified) || 'Fri Nov 30 2018 16:00:00 GMT-0800 (Pacific Standard Time)'
+
+        console.log('New date is:')
+        console.log(date)
     
         return (
             <Link 

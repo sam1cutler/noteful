@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom';
 import './App.css';
-import STORE from './dummy-store';
+//import STORE from './dummy-store';
 import ListOfNotes from './MainSection/ListOfNotes';
 import ListOfFolders from './SidebarSection/ListOfFolders';
 import NotePage from './MainSection/NotePage';
@@ -21,9 +21,47 @@ class App extends Component {
 
   componentDidMount() {
     
-    console.log('Component Did Mount!')
+    //console.log('Component Did Mount!')
     
-    this.setState(STORE)
+    fetch('http://localhost:9090/folders')
+      .then(response => {
+        //console.log('starting folders fetch')
+        if (!response.ok) {
+          console.log('Something wrong with folders fetch request.');
+          throw new Error('Something wrong with folders fetch request.');
+        }
+        return response.json();
+      })
+      .then(responseJson => {
+        //console.log('Folders fetch worked! Yielded:')
+        //console.log(responseJson)
+        this.setState({
+          folders: responseJson
+        })
+      })
+      .catch(error => {
+        console.log(error)
+      });
+    
+      fetch('http://localhost:9090/notes')
+        .then(response => {
+          //console.log('starting notes fetch')
+          if (!response.ok) {
+            //console.log('Something wrong with notes fetch request.');
+            throw new Error('Something wrong with notes fetch request.');
+          }
+          return response.json();
+        })
+        .then(responseJson => {
+          //console.log('Notes fetch worked! Yielded:')
+          //console.log(responseJson)
+          this.setState({
+            notes: responseJson
+          })
+        })
+        .catch(error => {
+          console.log(error)
+        })
     
   }
   
@@ -70,8 +108,8 @@ class App extends Component {
   
   render() {
 
-    console.log('in the render, and the state looks like')
-    console.log(this.state)
+    //console.log('in the render, and the state looks like')
+    //console.log(this.state)
 
     return (
       <NotesContext.Provider value={this.state}>
