@@ -1,21 +1,38 @@
 import React, { Component } from 'react';
 //import { Route } from 'react-router-dom';
 import './ListOfNotes.css';
-//import NotesContext from '../NotesContext';
+import NotesContext from '../NotesContext';
 import NoteCard from './NoteCard';
 
 class ListOfNotes extends Component {
 
     static defaultProps = {
-        relevantNotes: []
+        match: {
+            params: {}
+        }
+    }
+
+    static contextType = NotesContext
+    
+    filterListOfNotes(allNotes, currentFolderId) {
+        let outputNotes = []
+        if (currentFolderId) {
+            outputNotes = allNotes.filter(note =>
+                note.folderId === currentFolderId)
+        } else {
+          outputNotes = allNotes;
+        }
+        return outputNotes
     }
 
     render() {
 
-        //console.log('Notes that made it to ListOfNotes.js:')
-        //console.log(this.props)
+        const allCurrentNotes = this.context.notes
 
-        const cardList = this.props.relevantNotes.map( (activeNote, i) => {
+        const relevantNotes = this.filterListOfNotes(
+            allCurrentNotes, this.props.match.params.folderId);
+        
+        const cardList = relevantNotes.map( (activeNote, i) => {
             //console.log(activeNote);
             return (
                 <NoteCard

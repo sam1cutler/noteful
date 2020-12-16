@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
+import NotesContext from '../NotesContext';
 import './ListOfFolders.css';
 
 class ListOfFolders extends Component {
@@ -8,12 +9,19 @@ class ListOfFolders extends Component {
         folderList: []
     }
 
+    static contextType = NotesContext
+
     render() {
 
-        const { folderList } = this.props
+        //console.log('In List of Folders.')
 
+        //console.log(this.context)
+        
+        const { folders } = this.context
 
-        const folderLinksList = folderList.map( (folder, i) => {
+        //console.log(folders)
+        
+        const folderLinksList = folders.map( (folder, i) => {
             //console.log(folder);
             return (
                 <li key={i}>
@@ -33,9 +41,7 @@ class ListOfFolders extends Component {
                 </ul>
             </div>
         )
-
     }
-
 }
 
 export default ListOfFolders;

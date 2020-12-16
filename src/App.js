@@ -6,20 +6,25 @@ import ListOfNotes from './MainSection/ListOfNotes';
 import ListOfFolders from './SidebarSection/ListOfFolders';
 import NotePage from './MainSection/NotePage';
 import NoteSidebar from './SidebarSection/NoteSidebar';
+import NotesContext from './NotesContext';
+
+//console.log(NotesContext);
 
 class App extends Component {
 
-  state = STORE;
+  //state = STORE;
 
-  filterListOfNotes(currentFolderId) {
-    if (currentFolderId) {
-      return (
-        this.state.notes.filter(note =>
-        note.folderId === currentFolderId)
-      )
-    } else {
-      return this.state.notes;
-    }
+  state = {
+    folders: [],
+    notes: [],
+  }
+
+  componentDidMount() {
+    
+    console.log('Component Did Mount!')
+    
+    this.setState(STORE)
+    
   }
   
   renderSidebarRoutes() {
@@ -31,23 +36,12 @@ class App extends Component {
             key={path}
             path={path}
             exact
-            render={ () => 
-              <ListOfFolders 
-                folderList={this.state.folders}
-              />
-            }
+            component={ListOfFolders}
           />
         ))}
         <Route 
           path='/note/:noteName'
-          render={ (props) => 
-            <NoteSidebar 
-              noteInfo={this.state.notes.find(note => 
-                note.name === props.match.params.noteName)}
-              folderList={this.state.folders}
-              onClickGoBack={ () => props.history.goBack()}
-            />
-          }
+          component={NoteSidebar}
         />
       </>
     )
@@ -63,27 +57,12 @@ class App extends Component {
             exact
             key={path}
             path={path}
-            render={ (props) => {
-              const relevantNotesList = 
-              this.filterListOfNotes(props.match.params.folderId);
-              return (
-                <ListOfNotes 
-                  relevantNotes={relevantNotesList}
-                />
-              )    
-            }}
+            component={ListOfNotes}
           />
         ))}
         <Route 
           path='/note/:noteName'
-          render={ (props) => {
-            return (
-              <NotePage 
-                noteInfo={this.state.notes.find(note => 
-                  note.name === props.match.params.noteName)}
-              />
-            )
-          }}
+          component={NotePage}
         />
       </>
     )
@@ -91,22 +70,27 @@ class App extends Component {
   
   render() {
 
+    console.log('in the render, and the state looks like')
+    console.log(this.state)
+
     return (
-      <div>
-        <header className='App-header'>
-          <Link to='/'>
-            <h1>Noteful!</h1>
-          </Link>
-        </header>
-        <main className='major-group'>
-          <section className='major-section folders-section'>
-            {this.renderSidebarRoutes()}        
-          </section>
-          <section className='major-section main-section'>
-            {this.renderMainRoutes()}          
-          </section>
-        </main>
-      </div>
+      <NotesContext.Provider value={this.state}>
+        <div>
+          <header className='App-header'>
+            <Link to='/'>
+              <h1>Noteful!</h1>
+            </Link>
+          </header>
+          <main className='major-group'>
+            <section className='major-section folders-section'>
+              {this.renderSidebarRoutes()}        
+            </section>
+            <section className='major-section main-section'>
+              {this.renderMainRoutes()}          
+            </section>
+          </main>
+        </div>
+      </NotesContext.Provider>
     )
 
   }
