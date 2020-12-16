@@ -5,6 +5,36 @@
     border: 1px solid teal;
 }
 
-.note-card:hover {
+.card-title {
+    display: block;
+    border: 1px solid rgb(194, 192, 192);
+}
+
+.card-title,h3 {
+    margin: 10px;
+
+}
+
+.card-info-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+
+.card-title:hover {
     background-color: rgb(239, 247, 250);
+}
+
+.delete-button {
+    font-size: 14pt;
+    background-color: rgb(226, 254, 255);
+    border-radius: 3px;
+    border: 1px solid darkgray;
+}
+
+.delete-button:hover {
+    background-color: rgb(221, 191, 191);
+    border: 1px solid red;
+    cursor: pointer;
 }

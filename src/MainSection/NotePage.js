@@ -11,6 +11,10 @@ class NotePage extends Component {
 
     static contextType = NotesContext
 
+    returnHomeAfterDelete = () => {
+        this.props.history.push('/')
+    }
+
     render() {
 
         //console.log('In NotePage.js');
@@ -27,6 +31,7 @@ class NotePage extends Component {
             <div>
                 <NoteCard 
                     cardInfo={currentNote}
+                    onDeleteNote={this.returnHomeAfterDelete}
                 />
                 <p>{currentNote.content}</p>
             </div>

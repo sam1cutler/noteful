@@ -64,6 +64,15 @@ class App extends Component {
         })
     
   }
+
+  handleDeleteNote = (noteId) => {
+    console.log('In App.js, hoping to remove deleted note from the DOM')
+    const newNotesList = this.state.notes.filter( note => 
+      note.id !== noteId)
+    this.setState({
+      notes: newNotesList
+    })
+  }
   
   renderSidebarRoutes() {
 
@@ -111,8 +120,14 @@ class App extends Component {
     //console.log('in the render, and the state looks like')
     //console.log(this.state)
 
+    const value = {
+      folders: this.state.folders,
+      notes: this.state.notes,
+      deleteNote: this.handleDeleteNote,
+    }
+
     return (
-      <NotesContext.Provider value={this.state}>
+      <NotesContext.Provider value={value}>
         <div>
           <header className='App-header'>
             <Link to='/'>
