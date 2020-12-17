@@ -39,6 +39,11 @@ class ListOfFolders extends Component {
                 <ul>
                     {folderLinksList}
                 </ul>
+                <NavLink
+                    to={'/AddFolder'}
+                    className='add-folder-button'>
+                        Add Folder
+                </NavLink>
             </div>
         )
     }

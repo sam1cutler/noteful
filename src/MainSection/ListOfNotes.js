@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-//import { Route } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import './ListOfNotes.css';
 import NotesContext from '../NotesContext';
 import NoteCard from './NoteCard';
@@ -43,8 +43,13 @@ class ListOfNotes extends Component {
         })
 
         return (
-            <div>
+            <div className='notes-list-container'>
                 {cardList}
+                <NavLink
+                    to={'/AddNote'}
+                    className='add-note-button'>
+                        Add Note
+                </NavLink>
             </div>
         )
 

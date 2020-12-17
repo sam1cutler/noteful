@@ -1,18 +1,16 @@
 import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom';
 import './App.css';
-//import STORE from './dummy-store';
 import ListOfNotes from './MainSection/ListOfNotes';
 import ListOfFolders from './SidebarSection/ListOfFolders';
 import NotePage from './MainSection/NotePage';
 import NoteSidebar from './SidebarSection/NoteSidebar';
 import NotesContext from './NotesContext';
+import AddFolder from './FormComponents/AddFolder';
+import AddNote from './FormComponents/AddNote';
 
-//console.log(NotesContext);
 
 class App extends Component {
-
-  //state = STORE;
 
   state = {
     folders: [],
@@ -21,11 +19,11 @@ class App extends Component {
 
   componentDidMount() {
     
-    //console.log('Component Did Mount!')
+    console.log('Component Did Mount!')
     
     fetch('http://localhost:9090/folders')
       .then(response => {
-        //console.log('starting folders fetch')
+        console.log('starting folders fetch')
         if (!response.ok) {
           console.log('Something wrong with folders fetch request.');
           throw new Error('Something wrong with folders fetch request.');
@@ -45,7 +43,7 @@ class App extends Component {
     
       fetch('http://localhost:9090/notes')
         .then(response => {
-          //console.log('starting notes fetch')
+          console.log('starting notes fetch')
           if (!response.ok) {
             //console.log('Something wrong with notes fetch request.');
             throw new Error('Something wrong with notes fetch request.');
@@ -73,18 +71,26 @@ class App extends Component {
       notes: newNotesList
     })
   }
+
+  handleAddFolder = (newFolder) => {
+    console.log('In App.js, hoping to add a new folder to state.')
+    this.setState({
+      folders: [ ...this.state.folders, newFolder]
+    })
+  }
   
   renderSidebarRoutes() {
 
     return (
       <>
-        {['/','/folder/:folderId'].map(path => (
-          <Route 
-            key={path}
-            path={path}
-            exact
-            component={ListOfFolders}
-          />
+        {['/','/folder/:folderId','/AddFolder','/AddNote']
+          .map(path => (
+            <Route 
+              key={path}
+              path={path}
+              exact
+              component={ListOfFolders}
+            />
         ))}
         <Route 
           path='/note/:noteName'
@@ -111,6 +117,14 @@ class App extends Component {
           path='/note/:noteName'
           component={NotePage}
         />
+        <Route 
+          path='/AddFolder'
+          component={AddFolder}
+        />
+        <Route 
+          path='/AddNote'
+          component={AddNote}
+        />
       </>
     )
   }
@@ -124,6 +138,7 @@ class App extends Component {
       folders: this.state.folders,
       notes: this.state.notes,
       deleteNote: this.handleDeleteNote,
+      addFolder: this.handleAddFolder,
     }
 
     return (

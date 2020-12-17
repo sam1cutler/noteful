@@ -8,7 +8,6 @@
     border: 1px solid darkslategrey;
 }
 
-
 .folder-nav-link:hover {
     background-color: rgb(226, 246, 253);
 }
@@ -17,4 +16,22 @@
     background-color: rgb(171, 230, 250);
 }
 
+.add-folder-button {
+    display: block;
+    border: 1px solid teal;
+    margin: 50px;
+    padding: 5px 20px;
+    max-width: 150px; 
+    text-align: center;
+    width: fit-content;
+}
 
+.add-folder-button:hover {
+    background-color: rgb(226, 246, 253);
+    border: 3px solid teal;
+}
+
+.add-folder-button.active {
+    background-color: rgb(171, 230, 250);
+    border: 3px solid teal;
+}
