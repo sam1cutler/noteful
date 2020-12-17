@@ -10,6 +10,18 @@ class AddFolder extends Component {
         error: null,
     };
 
+    makeNewFolderId = () => {
+        const characterPool = 'abcdefghijklmnopqrstuvwxyz0123456789';
+
+        let randomAddition = '';
+        for (let i=0 ; i<4 ; i++) {
+            const randomCharacterPosition = Math.floor(Math.random() * Math.floor(36))
+            randomAddition += characterPool[randomCharacterPosition];
+        }
+
+        return `c071${randomAddition}-ffaf-11e8-8eb2-f2801f1b9fd1`;
+    }
+
     handleAddFolderFormSubmission = event => {
         event.preventDefault();
         console.log('User submitted AddFolder Form, with the new folder name:')
@@ -17,14 +29,17 @@ class AddFolder extends Component {
         const newFolderName = event.target.newFolderName.value
         console.log(newFolderName)
 
-        const folder = {
-            id: 'b07164g6-ffaf-11e5-8eb2-f2821f1b9fd4',
+        const newFolderId = this.makeNewFolderId()
+        console.log(newFolderId)
+
+        const newFolder = {
+            id: newFolderId,
             name: newFolderName
         }
 
         fetch('http://localhost:9090/folders', {
             method: 'POST',
-            body: JSON.stringify(folder),
+            body: JSON.stringify(newFolder),
             headers: {
                 'content-type': 'application/json'
             },

@@ -1,0 +1,14 @@
+.add-note-form-container {
+    margin: 10px;
+    padding: 20px;
+    background-color: rgb(233, 233, 233);
+}
+
+.add-note-form-container, h2 {
+    margin: 10px 20px;
+}
+
+form textarea {
+    height: 4.75rem;
+    width: 90%;
+  }

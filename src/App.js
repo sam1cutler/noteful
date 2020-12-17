@@ -78,6 +78,13 @@ class App extends Component {
       folders: [ ...this.state.folders, newFolder]
     })
   }
+
+  handleAddNote = (newNote) => {
+    console.log('In App.js, hoping to add a new note to state.')
+    this.setState({
+      notes: [ ...this.state.notes, newNote]
+    })
+  }
   
   renderSidebarRoutes() {
 
@@ -139,6 +146,7 @@ class App extends Component {
       notes: this.state.notes,
       deleteNote: this.handleDeleteNote,
       addFolder: this.handleAddFolder,
+      addNote: this.handleAddNote,
     }
 
     return (
