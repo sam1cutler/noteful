@@ -7,9 +7,11 @@ class AddFolder extends Component {
     static contextType = NotesContext;
 
     state = {
+        newFolderName: '',
         error: null,
     };
 
+    // Generate a mostly-random new string to uniquely ID this new folder
     makeNewFolderId = () => {
         const characterPool = 'abcdefghijklmnopqrstuvwxyz0123456789';
 
@@ -22,19 +24,18 @@ class AddFolder extends Component {
         return `c071${randomAddition}-ffaf-11e8-8eb2-f2801f1b9fd1`;
     }
 
+    /*-- Update state as form is filled out --*/
+    updateName(inputName) {
+        this.setState({ newFolderName: inputName })
+    }
+
     handleAddFolderFormSubmission = event => {
         event.preventDefault();
         console.log('User submitted AddFolder Form, with the new folder name:')
-        
-        const newFolderName = event.target.newFolderName.value
-        console.log(newFolderName)
-
-        const newFolderId = this.makeNewFolderId()
-        console.log(newFolderId)
 
         const newFolder = {
-            id: newFolderId,
-            name: newFolderName
+            id: this.makeNewFolderId(),
+            name: this.state.newFolderName
         }
 
         fetch('http://localhost:9090/folders', {
@@ -64,8 +65,6 @@ class AddFolder extends Component {
                     error: errorMessage
                 })
             })
-
-
     }
 
     render() {
@@ -93,6 +92,7 @@ class AddFolder extends Component {
                             id='newFolderName'
                             placeholder='odds and ends'
                             required
+                            onChange={e => this.updateName(e.target.value)}
                         />
                         <br /><br />
                         <button type='submit'>
