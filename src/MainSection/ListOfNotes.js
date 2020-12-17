@@ -33,7 +33,7 @@ class ListOfNotes extends Component {
             allCurrentNotes, this.props.match.params.folderId);
         
         const cardList = relevantNotes.map( (activeNote, i) => {
-            //console.log(activeNote);
+
             return (
                 <NoteCard
                     key={i}
@@ -52,9 +52,7 @@ class ListOfNotes extends Component {
                 </NavLink>
             </div>
         )
-
     }
-
 }
 
 export default ListOfNotes;

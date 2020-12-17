@@ -31,7 +31,6 @@ class AddFolder extends Component {
 
     handleAddFolderFormSubmission = event => {
         event.preventDefault();
-        console.log('User submitted AddFolder Form, with the new folder name:')
 
         const newFolder = {
             id: this.makeNewFolderId(),
@@ -56,7 +55,6 @@ class AddFolder extends Component {
                 return response.json()
             })
             .then(data => {
-                console.log(data)
                 this.context.addFolder(data)
                 this.props.history.push('/')
             })
@@ -101,11 +99,8 @@ class AddFolder extends Component {
                     </div>
                 </form>
             </div>
-
         )
-
     }
-
 }
 
 export default AddFolder;

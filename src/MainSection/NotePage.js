@@ -5,10 +5,6 @@ import NotesContext from '../NotesContext';
 
 class NotePage extends Component {
 
-    static defaultProps = {
-        noteInfo: []
-    }
-
     static contextType = NotesContext
 
     returnHomeAfterDelete = () => {
@@ -17,15 +13,8 @@ class NotePage extends Component {
 
     render() {
 
-        //console.log('In NotePage.js');
-        //console.log(this.context)
-
-        //console.log(this.props.match.params.noteName)
-
         const currentNote = this.context.notes.find(note =>
             note.name === this.props.match.params.noteName) || {}
-        
-        //console.log(currentNote)
     
         return (
             <div>
@@ -36,9 +25,7 @@ class NotePage extends Component {
                 <p>{currentNote.content}</p>
             </div>
         )
-
     }
-
 }
 
 export default NotePage;

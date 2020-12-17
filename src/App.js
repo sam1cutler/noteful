@@ -8,6 +8,7 @@ import NoteSidebar from './SidebarSection/NoteSidebar';
 import NotesContext from './NotesContext';
 import AddFolder from './FormComponents/AddFolder';
 import AddNote from './FormComponents/AddNote';
+import ErrorBoundary from './ErrorsAndValidation/ErrorBoundary';
 
 
 class App extends Component {
@@ -19,11 +20,8 @@ class App extends Component {
 
   componentDidMount() {
     
-    console.log('Component Did Mount!')
-    
     fetch('http://localhost:9090/folders')
       .then(response => {
-        console.log('starting folders fetch')
         if (!response.ok) {
           console.log('Something wrong with folders fetch request.');
           throw new Error('Something wrong with folders fetch request.');
@@ -31,8 +29,6 @@ class App extends Component {
         return response.json();
       })
       .then(responseJson => {
-        //console.log('Folders fetch worked! Yielded:')
-        //console.log(responseJson)
         this.setState({
           folders: responseJson
         })
@@ -43,51 +39,42 @@ class App extends Component {
     
       fetch('http://localhost:9090/notes')
         .then(response => {
-          console.log('starting notes fetch')
           if (!response.ok) {
-            //console.log('Something wrong with notes fetch request.');
             throw new Error('Something wrong with notes fetch request.');
           }
           return response.json();
         })
         .then(responseJson => {
-          //console.log('Notes fetch worked! Yielded:')
-          //console.log(responseJson)
           this.setState({
             notes: responseJson
           })
         })
         .catch(error => {
           console.log(error)
-        })
-    
+        })   
   }
 
+  /*-- functions to handle interactivity --*/
   handleDeleteNote = (noteId) => {
-    console.log('In App.js, hoping to remove deleted note from the DOM')
     const newNotesList = this.state.notes.filter( note => 
       note.id !== noteId)
     this.setState({
       notes: newNotesList
     })
   }
-
   handleAddFolder = (newFolder) => {
-    console.log('In App.js, hoping to add a new folder to state.')
     this.setState({
       folders: [ ...this.state.folders, newFolder]
     })
   }
-
   handleAddNote = (newNote) => {
-    console.log('In App.js, hoping to add a new note to state.')
     this.setState({
       notes: [ ...this.state.notes, newNote]
     })
   }
   
+  /*-- Render the two main clusters of Routes --*/
   renderSidebarRoutes() {
-
     return (
       <>
         {['/','/folder/:folderId','/AddFolder','/AddNote']
@@ -108,9 +95,7 @@ class App extends Component {
   }
 
   renderMainRoutes() {
-
     return (
-
       <>
         {['/','/folder/:folderId'].map(path => (
           <Route
@@ -138,9 +123,6 @@ class App extends Component {
   
   render() {
 
-    //console.log('in the render, and the state looks like')
-    //console.log(this.state)
-
     const value = {
       folders: this.state.folders,
       notes: this.state.notes,
@@ -158,19 +140,21 @@ class App extends Component {
             </Link>
           </header>
           <main className='major-group'>
-            <section className='major-section folders-section'>
-              {this.renderSidebarRoutes()}        
-            </section>
-            <section className='major-section main-section'>
-              {this.renderMainRoutes()}          
-            </section>
+            <ErrorBoundary section='sidebar'>
+              <section className='major-section folders-section'>
+                {this.renderSidebarRoutes()}        
+              </section>
+            </ErrorBoundary>
+            <ErrorBoundary section='main'>
+              <section className='major-section main-section'>
+                {this.renderMainRoutes()}          
+              </section>
+            </ErrorBoundary>
           </main>
         </div>
       </NotesContext.Provider>
     )
-
   }
-
 }
 
 export default App;

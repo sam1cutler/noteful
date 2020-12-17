@@ -3,6 +3,7 @@ import NotesContext from '../NotesContext';
 import './AddNote.css';
 import ValidationError from '../ErrorsAndValidation/ValidationError';
 
+
 class AddNote extends Component {
 
     static contextType = NotesContext;
@@ -58,7 +59,6 @@ class AddNote extends Component {
           return 'A folder choice is required';
         }
     }
-
 
     handleAddNoteFormSubmission = event => {
         event.preventDefault();
@@ -182,9 +182,7 @@ class AddNote extends Component {
                     Go Back
                 </button>
             </div>
-
         )
-
     }
 }
 

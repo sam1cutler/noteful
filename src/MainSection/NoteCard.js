@@ -3,25 +3,26 @@ import { Link } from 'react-router-dom';
 //import { format } from 'date-fns'
 import './NoteCard.css';
 import NotesContext from '../NotesContext';
+import PropTypes from 'prop-types';
 
 class NoteCard extends Component {
 
     static defaultProps = {
         cardInfo: {
-            name: ''
-        },
-        onDeleteNote: () => {},
+            id: '',
+            name: '',
+            modified: '',
+            folderId: '',
+            content: '',
+        }
     }
 
     static contextType = NotesContext;
 
     handleDeleteNote = (event) => {
-        console.log('User requested to delete a note.')
 
         event.preventDefault();
         const noteId = this.props.cardInfo.id
-
-        console.log(noteId)
 
         fetch(`http://localhost:9090/notes/${noteId}`, {
             method: 'DELETE',
@@ -30,7 +31,6 @@ class NoteCard extends Component {
             }
         })  
             .then(response => {
-                console.log(response);
                 if (!response.ok) {
                     throw new Error('Something went wrong with note delete request.')
                 }
@@ -43,22 +43,11 @@ class NoteCard extends Component {
             .catch(error => {
                 console.log(error)
             })
-
-
     }
     
     render() {
 
         const { cardInfo } = this.props
-
-        
-        //const date = new Date(cardInfo.modified)
-        //console.log(cardInfo.name)
-        //console.log(date)
-
-        //const formattedDate = format(date, 'd MMM yyyy')
-        //console.log(formattedDate)
-        
 
         return (
             <div className='note-card'>
@@ -78,13 +67,20 @@ class NoteCard extends Component {
                         onClick={this.handleDeleteNote}>
                             Delete
                     </button>
-                </div>
-                
+                </div> 
             </div>
         )
-
     }
-
 }
 
 export default NoteCard;
+
+NoteCard.propTypes = {
+    cardInfo: PropTypes.shape({
+        id: PropTypes.string,
+        name: PropTypes.string,
+        modified: PropTypes.string,
+        folderId: PropTypes.string,
+        content: PropTypes.string,
+    })
+}
