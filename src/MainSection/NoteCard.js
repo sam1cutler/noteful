@@ -54,7 +54,7 @@ class NoteCard extends Component {
                 <Link 
                     to={`/note/${cardInfo.name}`}
                     className='card-title'>
-                        <h3>{cardInfo.name}</h3>
+                        <h2>{cardInfo.name}</h2>
                 </Link>
 
                 <div className='card-info-container'>
