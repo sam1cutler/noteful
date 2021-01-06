@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import './NotePage.css';
 import NoteCard from './NoteCard';
 import NotesContext from '../NotesContext';
@@ -14,16 +15,21 @@ class NotePage extends Component {
     render() {
 
         const currentNote = this.context.notes.find(note =>
-            note.name === this.props.match.params.noteName) || {}
+            note.name === this.props.match.params.noteName)
     
-        return (
-            <div>
+        return ( <> {currentNote ? 
+            (<div>
                 <NoteCard 
                     cardInfo={currentNote}
                     onDeleteNote={this.returnHomeAfterDelete}
                 />
                 <p>{currentNote.content}</p>
-            </div>
+            </div>)
+            : <Redirect 
+                    to='/'
+                />
+        } </>
+
         )
     }
 }

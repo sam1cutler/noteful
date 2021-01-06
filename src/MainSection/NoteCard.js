@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-//import { format } from 'date-fns'
+import { format } from 'date-fns'
 import './NoteCard.css';
 import NotesContext from '../NotesContext';
 import PropTypes from 'prop-types';
@@ -49,6 +49,14 @@ class NoteCard extends Component {
 
         const { cardInfo } = this.props
 
+        console.log(cardInfo.modified);
+
+        const newModified1 = new Date(cardInfo.modified);
+        console.log(newModified1);
+        
+        const newModified2 = format(newModified1, 'do MMM yyyy');
+        console.log(newModified2);
+
         return (
             <div className='note-card'>
                 <Link 
@@ -59,7 +67,7 @@ class NoteCard extends Component {
 
                 <div className='card-info-container'>
                     <div>
-                        {cardInfo.modified}
+                        Modified: {newModified2}
                     </div>
                     <button
                         type='button' 
@@ -75,9 +83,10 @@ class NoteCard extends Component {
 
 export default NoteCard;
 
+
 NoteCard.propTypes = {
     cardInfo: PropTypes.shape({
-        id: PropTypes.string,
+        id: PropTypes.string.isRequired,
         name: PropTypes.string,
         modified: PropTypes.string,
         folderId: PropTypes.string,
