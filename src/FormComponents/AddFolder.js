@@ -11,19 +11,6 @@ class AddFolder extends Component {
         error: null,
     };
 
-    // Generate a mostly-random new string to uniquely ID this new folder
-    makeNewFolderId = () => {
-        const characterPool = 'abcdefghijklmnopqrstuvwxyz0123456789';
-
-        let randomAddition = '';
-        for (let i=0 ; i<4 ; i++) {
-            const randomCharacterPosition = Math.floor(Math.random() * Math.floor(36))
-            randomAddition += characterPool[randomCharacterPosition];
-        }
-
-        return `c071${randomAddition}-ffaf-11e8-8eb2-f2801f1b9fd1`;
-    }
-
     /*-- Update state as form is filled out --*/
     updateName(inputName) {
         this.setState({ newFolderName: inputName })
@@ -32,14 +19,13 @@ class AddFolder extends Component {
     handleAddFolderFormSubmission = event => {
         event.preventDefault();
 
-        const newFolder = {
-            id: this.makeNewFolderId(),
+        const newFolderName = {
             name: this.state.newFolderName
         }
 
-        fetch('http://localhost:9090/folders', {
+        fetch('http://localhost:8000/api/folders', {
             method: 'POST',
-            body: JSON.stringify(newFolder),
+            body: JSON.stringify(newFolderName),
             headers: {
                 'content-type': 'application/json'
             },

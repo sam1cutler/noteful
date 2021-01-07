@@ -12,7 +12,7 @@ class NoteSidebar extends Component {
             note.name === this.props.match.params.noteName) || {}
 
         const activeFolderObject = this.context.folders.find(folder => 
-            folder.id === activeNote.folderId) || {}
+            folder.id === activeNote.folder_id) || {}
 
         const activeFolder = activeFolderObject.name
        

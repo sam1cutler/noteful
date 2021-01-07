@@ -18,7 +18,7 @@ class ListOfNotes extends Component {
         let outputNotes = []
         if (currentFolderId) {
             outputNotes = allNotes.filter(note =>
-                note.folderId === currentFolderId)
+                note.folder_id.toString() === currentFolderId)
         } else {
           outputNotes = allNotes;
         }

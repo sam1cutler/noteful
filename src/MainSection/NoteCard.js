@@ -24,7 +24,7 @@ class NoteCard extends Component {
         event.preventDefault();
         const noteId = this.props.cardInfo.id
 
-        fetch(`http://localhost:9090/notes/${noteId}`, {
+        fetch(`http://localhost:8000/api/notes/${noteId}`, {
             method: 'DELETE',
             headers: {
                 'content-type': 'application/json'
@@ -34,7 +34,6 @@ class NoteCard extends Component {
                 if (!response.ok) {
                     throw new Error('Something went wrong with note delete request.')
                 }
-                return response.json()
             })
             .then( () => {
                 this.context.deleteNote(noteId)
@@ -49,13 +48,8 @@ class NoteCard extends Component {
 
         const { cardInfo } = this.props
 
-        console.log(cardInfo.modified);
-
         const newModified1 = new Date(cardInfo.modified);
-        console.log(newModified1);
-        
         const newModified2 = format(newModified1, 'do MMM yyyy');
-        console.log(newModified2);
 
         return (
             <div className='note-card'>
@@ -86,7 +80,7 @@ export default NoteCard;
 
 NoteCard.propTypes = {
     cardInfo: PropTypes.shape({
-        id: PropTypes.string.isRequired,
+        id: PropTypes.number.isRequired,
         name: PropTypes.string,
         modified: PropTypes.string,
         folderId: PropTypes.string,

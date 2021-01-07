@@ -20,7 +20,7 @@ class App extends Component {
 
   componentDidMount() {
     
-    fetch('http://localhost:9090/folders')
+    fetch('http://localhost:8000/api/folders')
       .then(response => {
         if (!response.ok) {
           console.log('Something wrong with folders fetch request.');
@@ -37,7 +37,7 @@ class App extends Component {
         console.log(error)
       });
     
-      fetch('http://localhost:9090/notes')
+      fetch('http://localhost:8000/api/notes')
         .then(response => {
           if (!response.ok) {
             throw new Error('Something wrong with notes fetch request.');

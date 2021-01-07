@@ -15,20 +15,6 @@ class AddNote extends Component {
         error: null,
     };
 
-    // Generate a mostly-random new string to uniquely ID this new note
-    makeNewNoteId = () => {
-        const characterPool = 'abcdefghijklmnopqrstuvwxyz0123456789';
-
-        let randomAddition = '';
-        for (let i=0 ; i<4 ; i++) {
-            const randomCharacterPosition = Math.floor(Math.random() * Math.floor(36))
-            randomAddition += characterPool[randomCharacterPosition];
-        }
-
-        return `e26e${randomAddition}-ffaf-11e8-8eb2-f2801f1b9fd1`;
-    }
-
-
     /*-- Update state as form is filled out --*/
     updateName(inputName) {
         this.setState({ newNoteName: inputName })
@@ -62,20 +48,18 @@ class AddNote extends Component {
 
     handleAddNoteFormSubmission = event => {
         event.preventDefault();
-        console.log('User submitted AddNote Form.')
 
         const { newNoteName, newNoteContent, targetFolder } = this.state;
         const timeStamp = (new Date()).toISOString();
 
         const newNote = {
-            id: this.makeNewNoteId(),
             name: newNoteName,
             modified: timeStamp,
-            folderId: targetFolder,
+            folder_id: targetFolder,
             content: newNoteContent,
         }
 
-        fetch('http://localhost:9090/notes', {
+        fetch('http://localhost:8000/api/notes', {
             method: 'POST',
             body: JSON.stringify(newNote),
             headers: {
