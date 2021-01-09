@@ -11,7 +11,7 @@ class NoteCard extends Component {
         cardInfo: {
             id: '',
             name: '',
-            modified: '',
+            modified: '2019-01-03T00:00:00.000Z',
             folderId: '',
             content: '',
         }
@@ -24,7 +24,7 @@ class NoteCard extends Component {
         event.preventDefault();
         const noteId = this.props.cardInfo.id
 
-        fetch(`http://localhost:8000/api/notes/${noteId}`, {
+        fetch(`https://quiet-shore-95229.herokuapp.com/api/notes/${noteId}`, {
             method: 'DELETE',
             headers: {
                 'content-type': 'application/json'
@@ -37,7 +37,6 @@ class NoteCard extends Component {
             })
             .then( () => {
                 this.context.deleteNote(noteId)
-                this.props.onDeleteNote()
             })
             .catch(error => {
                 console.log(error)
@@ -80,7 +79,7 @@ export default NoteCard;
 
 NoteCard.propTypes = {
     cardInfo: PropTypes.shape({
-        id: PropTypes.number.isRequired,
+        id: PropTypes.string.isRequired,
         name: PropTypes.string,
         modified: PropTypes.string,
         folderId: PropTypes.string,

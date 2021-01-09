@@ -20,7 +20,7 @@ class App extends Component {
 
   componentDidMount() {
     
-    fetch('http://localhost:8000/api/folders')
+    fetch('https://quiet-shore-95229.herokuapp.com/api/folders')
       .then(response => {
         if (!response.ok) {
           console.log('Something wrong with folders fetch request.');
@@ -37,7 +37,7 @@ class App extends Component {
         console.log(error)
       });
     
-      fetch('http://localhost:8000/api/notes')
+      fetch('https://quiet-shore-95229.herokuapp.com/api/notes')
         .then(response => {
           if (!response.ok) {
             throw new Error('Something wrong with notes fetch request.');

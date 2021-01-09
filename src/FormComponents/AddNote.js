@@ -59,7 +59,7 @@ class AddNote extends Component {
             content: newNoteContent,
         }
 
-        fetch('http://localhost:8000/api/notes', {
+        fetch('https://quiet-shore-95229.herokuapp.com/api/notes', {
             method: 'POST',
             body: JSON.stringify(newNote),
             headers: {
